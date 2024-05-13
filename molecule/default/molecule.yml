@@ -16,12 +16,12 @@ platforms:
     box: centos/8
     cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
     memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
-  - name: debian10
-    box: generic/debian10
-    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
-    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
   - name: debian11
     box: generic/debian11
+    cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
+    memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
+  - name: debian12
+    box: debian/bookworm64
     cpus: "${MOLECULE_VAGRANT_VM_CPUS:-1}"
     memory: "${MOLECULE_VAGRANT_VM_MEM:-1024}"
 
