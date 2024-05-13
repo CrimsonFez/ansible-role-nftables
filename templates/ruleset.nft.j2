@@ -7,6 +7,10 @@ include "{{ include_statement }}"
 {% endfor %}
 
 {% for table in (nftables_ruleset.tables | default([])) %}
+{% if nftables_disable_flush_ruleset %}
+table {{ table.family }} {{ table.name }}
+flush table {{ table.family }} {{ table.name }}
+{% endif %}
 table {{ table.family }} {{ table.name }} {
 {% for include_statement in (table.include | default([])) %}
     include "{{ include_statement }}"

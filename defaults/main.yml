@@ -4,3 +4,4 @@ nftables_ruleset:
   tables: []
 
 nftables_validate_ruleset: True
+nftables_disable_flush_ruleset: False

@@ -23,6 +23,14 @@
       ExecReload=
       ExecReload=/usr/sbin/nft 'flush ruleset; include "{{ nftables_ruleset_file }}";'
   register: systemd_override_updated
+  when: nftables_disable_flush_ruleset == False
+
+- name: (Debian) Remove systemd unit override file
+  file:
+    path: /etc/systemd/system/nftables.service.d/override.conf
+    state: absent
+  register: systemd_override_updated
+  when: nftables_disable_flush_ruleset == True
 
 - name: (Debian) Reload systemd unit files
   systemd:
