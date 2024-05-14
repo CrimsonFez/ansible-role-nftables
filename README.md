@@ -16,6 +16,7 @@ Role Variables
 |Variable|Deafule value|Description|
 |-|-|-|
 |`nftables_validate_ruleset`|`True`|Wether to run `nft -c -f {{ nftables_ruleset_path }}`|
+|`nftables_disable_flush_ruleset`|`False`|Disable Flush ruleset on reload/restart service, instead flush individual tables. This is usefull for when running other applications that configure nftables.|
 |`nftables_ruleset.include_files`|`[]`|List of include files path for generic level include statements|
 |`nftables_ruleset.tables`|`[]`|List of tables|
 |`nftables_ruleset.tables[*].name`|-|Table name, mandatory|
@@ -39,11 +40,8 @@ Supported platforms
 -------------------
 
 * Debian
-  * Buster (10)
-  * Bullseye (11)
-* RHEL
-  * 7
-  * 8
+  * Buster (11)
+  * Bullseye (12)
 
 Example Playbook
 ----------------
@@ -91,35 +89,20 @@ This role uses [Molecule](https://molecule.readthedocs.io/en/stable/) for testin
 
 Use `MOLECULE_VAGRANT_VM_CPUS` and `MOLECULE_VAGRANT_VM_MEM` env variables to set VM vCPUs and RAM count.
 
-Additional dependencies for controller host:
-* Vagrant + preferred provider
-* Python: `python-vagrant` library
-* Python: `molecule-vagrant` [Molecule driver](https://github.com/ansible-community/molecule-vagrant)
+Dependencies:
+* molecule
+* [molecule-plugins[vagrant]](https://github.com/ansible-community/molecule-plugins)
+* ansible
 
-Preferred way to test role for compatibility with different versions of Ansible is to use [Tox](https://tox.wiki/en/stable/). See `tox.ini` for the full list of supported Ansible versions.
-
-Run tests for all environments:
-```
-tox
+### Quick Install with pipenv
+```shell
+pipenv install
 ```
 
-List available environments:
-```
-tox -l
-```
-
-Run tests only for specific environment (e.g. Ansible 2.9):
-```
-tox -e py3-ansible29
-```
-
-Run only specific Molecule subcommand (e.g. `molecule verify`):
-
-```
-# All test environments
-tox -- molecule verify
-# Specific test environments
-tox -e py3-ansible29 -- molecule verify
+### Running with pipenv
+```shell
+pipenv shell
+molecule test
 ```
 
 License
@@ -131,4 +114,5 @@ See full text in [LICENSE](LICENSE) file.
 Author Information
 ------------------
 
+This fork is maintained by David Kovari.  
 This role was created in 2021 by Dmitry Danilov.
